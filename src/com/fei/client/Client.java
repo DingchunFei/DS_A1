@@ -37,7 +37,7 @@ public class Client {
 
     public String communication(Word word) throws IOException {
         Word result;
-        String outputStr = Word.Word2Yaml(word);
+        String outputStr = Word.word2Yaml(word);
 
         try (Socket socket = new Socket(ip, port);) {
             DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -48,7 +48,7 @@ public class Client {
 
             while (true) {
                 if (input.available() > 0) {
-                    result = Word.Yaml2Word(input.readUTF());
+                    result = Word.yaml2Word(input.readUTF());
                     System.out.println(result);
                     break;
                 }

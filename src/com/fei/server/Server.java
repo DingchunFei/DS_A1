@@ -69,7 +69,7 @@ public class Server {
 				if (input.available() > 0) {
 					String inputStr = input.readUTF();
 					//Word word = jsonToWord(inputStr);
-					Word word = Word.Yaml2Word(inputStr);
+					Word word = Word.yaml2Word(inputStr);
 					String tmpResult;
 
 					if (word.getInstruction() == null) {
@@ -99,8 +99,7 @@ public class Server {
 					} else {
 						word.setMsg("instruction can not be found!");
 					}
-					//output.writeUTF(wordToJson(word));
-					output.writeUTF(Word.Word2Yaml(word));
+					output.writeUTF(Word.word2Yaml(word));
 					output.flush();
 				}
 
