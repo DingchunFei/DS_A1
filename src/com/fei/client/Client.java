@@ -1,15 +1,10 @@
 package com.fei.client;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fei.Word;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Date;
-import java.util.Scanner;
-
-import static com.fei.Word.jsonToWord;
-import static com.fei.Word.wordToJson;
 
 public class Client {
 
@@ -34,7 +29,6 @@ public class Client {
     }
 
     public String remove(String key) throws Exception {
-
         Word word = new Word(key);
         word.setInstruction("removeWord");
 
@@ -43,7 +37,7 @@ public class Client {
 
     public String communication(Word word) throws IOException {
         Word result;
-        String outputStr = wordToJson(word);
+        String outputStr = Word.Word2Yaml(word);
 
         try (Socket socket = new Socket(ip, port);) {
             DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -54,7 +48,7 @@ public class Client {
 
             while (true) {
                 if (input.available() > 0) {
-                    result = jsonToWord(input.readUTF());
+                    result = Word.Yaml2Word(input.readUTF());
                     System.out.println(result);
                     break;
                 }

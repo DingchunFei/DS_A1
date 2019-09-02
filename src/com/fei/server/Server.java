@@ -1,17 +1,14 @@
 package com.fei.server;
-import com.fei.Word;
-import com.fei.Dictionary;
 
+import com.fei.Dictionary;
+import com.fei.Word;
+
+import javax.net.ServerSocketFactory;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import static com.fei.Word.jsonToWord;
-import static com.fei.Word.wordToJson;
-
-import javax.net.ServerSocketFactory;
 
 public class Server {
 	
@@ -51,8 +48,8 @@ public class Server {
 					}
 				});
 				t.start();
+
 			}
-			
 		} 
 		catch (IOException e)
 		{
@@ -71,7 +68,8 @@ public class Server {
 			while(true) {
 				if (input.available() > 0) {
 					String inputStr = input.readUTF();
-					Word word = jsonToWord(inputStr);
+					//Word word = jsonToWord(inputStr);
+					Word word = Word.Yaml2Word(inputStr);
 					String tmpResult;
 
 					if (word.getInstruction() == null) {
@@ -101,7 +99,8 @@ public class Server {
 					} else {
 						word.setMsg("instruction can not be found!");
 					}
-					output.writeUTF(wordToJson(word));
+					//output.writeUTF(wordToJson(word));
+					output.writeUTF(Word.Word2Yaml(word));
 					output.flush();
 				}
 

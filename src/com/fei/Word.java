@@ -1,23 +1,18 @@
 package com.fei;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
+import org.yaml.snakeyaml.Yaml;
 
 public class Word {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
     private String instruction;
 
     private String key;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
     private String value;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
     private String msg=null;
 
 
@@ -81,10 +76,11 @@ public class Word {
                 '}';
     }
 
-    public static String wordToJson(Word word) throws JsonProcessingException {
+/*    public static String wordToJson(Word word) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         //调用mapper的 writeValueAsString() 方法把一个对象转为一个JSON字符串
         String jsonStr = mapper.writeValueAsString(word);
+        System.out.println(jsonStr);
         return jsonStr;
     }
 
@@ -95,6 +91,26 @@ public class Word {
         //因为，例如json里有4个属性，而我们的bean中只定义了2个属性，其它8个属性将被忽略
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         Word word = mapper.readValue(jsonStr, Word.class);
+        System.out.println(word);
+
+        return word;
+    }*/
+
+    public static Word Yaml2Word(String yamlStr){
+        Yaml yaml = new Yaml();
+        System.out.println("yamstr is ============>" + yamlStr);
+        Word word = yaml.load(yamlStr);
+        System.out.println("word is ============>" + word);
         return word;
     }
+
+    public static String Word2Yaml(Word word){
+        Yaml yaml = new Yaml();
+        System.out.println("word is ++++++++++++" + word);
+        String yamlStr = yaml.dump(word);
+        System.out.println("str is ++++++++++++" + yamlStr);
+        return yamlStr;
+    }
+
+
 }
