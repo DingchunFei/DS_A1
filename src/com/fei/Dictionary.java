@@ -42,7 +42,7 @@ public class Dictionary {
         }
     }
 
-    public synchronized String addWord(String key,String value) throws IOException {
+    public String addWord(String key,String value) throws IOException {
 
         writeLock.tryLock();
         try{
@@ -64,7 +64,7 @@ public class Dictionary {
         }
     }
 
-    public synchronized String removeWord(String key){
+    public String removeWord(String key){
         writeLock.tryLock();
         try {
             if (dict.containsKey(key)) {  //表示找到了
